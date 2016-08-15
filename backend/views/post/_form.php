@@ -1,5 +1,6 @@
 <?php
 
+use panwenbin\yii2\simplemde\widgets\SimpleMDE;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -17,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'content')->widget(SimpleMDE::className(), []) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? '发布日志' : '更新日志', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

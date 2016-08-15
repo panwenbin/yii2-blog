@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "914f9194a4d021de88b285b03e683984",
-    "content-hash": "e1929a97e872bdbaacc8530468eccb67",
+    "hash": "0f106da807946df798e5b9ebbc7bab11",
+    "content-hash": "781641dec1889db1c3868c83e3648268",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -162,6 +162,44 @@
             }
         },
         {
+            "name": "bower-asset/simplemde",
+            "version": "1.11.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NextStepWebs/simplemde-markdown-editor.git",
+                "reference": "6abda7ab68cc20f4aca870eb243747951b90ab04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NextStepWebs/simplemde-markdown-editor/zipball/6abda7ab68cc20f4aca870eb243747951b90ab04",
+                "reference": "6abda7ab68cc20f4aca870eb243747951b90ab04",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "src/js/simplemde.js",
+                    "src/css/simplemde.css"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A simple, beautiful, and embeddable JavaScript Markdown editor.",
+            "keywords": [
+                "editor",
+                "embeddable",
+                "javascript",
+                "markdown",
+                "wysiwyg"
+            ]
+        },
+        {
             "name": "bower-asset/yii2-pjax",
             "version": "v2.0.6",
             "source": {
@@ -205,7 +243,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/cebe/markdown/54a2c49de31cc44e864ebf0500a35ef21d0010b2.zip",
+                "url": "https://api.github.com/repos/cebe/markdown/zipball/54a2c49de31cc44e864ebf0500a35ef21d0010b2",
                 "reference": "54a2c49de31cc44e864ebf0500a35ef21d0010b2",
                 "shasum": ""
             },
@@ -265,7 +303,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/ezyang/htmlpurifier/d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2.zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
                 "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
                 "shasum": ""
             },
@@ -300,6 +338,49 @@
             "time": "2016-07-16 12:58:58"
         },
         {
+            "name": "panwenbin/yii2-simplemde-markdown-editor",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/panwenbin/yii2-simplemde-markdown-editor.git",
+                "reference": "7fb9f67cd7b3eed6130a55a410b7f0a1c854a1cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/panwenbin/yii2-simplemde-markdown-editor/zipball/7fb9f67cd7b3eed6130a55a410b7f0a1c854a1cf",
+                "reference": "7fb9f67cd7b3eed6130a55a410b7f0a1c854a1cf",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/simplemde": "*",
+                "yiisoft/yii2": "^2.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "panwenbin\\yii2\\simplemde\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pan Wenbin",
+                    "email": "panwenbin@gmail.com"
+                }
+            ],
+            "description": "SimpleMDE - Markdown Editor widget for Yii 2",
+            "keywords": [
+                "SimpleMDE",
+                "widget",
+                "yii",
+                "yii2"
+            ],
+            "time": "2016-08-15 15:39:52"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.3",
             "source": {
@@ -309,7 +390,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/swiftmailer/swiftmailer/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153.zip",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
                 "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
                 "shasum": ""
             },
@@ -362,7 +443,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/yiisoft/yii2-framework/2b75151ea60e1fd820046416eee2e89c3dda1133.zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2b75151ea60e1fd820046416eee2e89c3dda1133",
                 "reference": "2b75151ea60e1fd820046416eee2e89c3dda1133",
                 "shasum": ""
             },
@@ -456,7 +537,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/yiisoft/yii2-bootstrap/3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5.zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5",
                 "reference": "3fd2b8c950cce79d60e9702d6bcb24eb3c80f6c5",
                 "shasum": ""
             },
@@ -506,7 +587,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/yiisoft/yii2-composer/7452fd908a5023b8bb5ea1b123a174ca080de464.zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/7452fd908a5023b8bb5ea1b123a174ca080de464",
                 "reference": "7452fd908a5023b8bb5ea1b123a174ca080de464",
                 "shasum": ""
             },
@@ -553,7 +634,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/yiisoft/yii2-swiftmailer/e2c6315caff30a9271a7afad4d684627721dc69a.zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-swiftmailer/zipball/e2c6315caff30a9271a7afad4d684627721dc69a",
                 "reference": "e2c6315caff30a9271a7afad4d684627721dc69a",
                 "shasum": ""
             },
