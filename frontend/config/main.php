@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'name' => 'Yii2-Blog', // 在 main-local.php 配置站点名称，不修改此处
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -36,14 +37,14 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+        'formatter' => [
+            'datetimeFormat' => 'php:Y年m月d日 H时i分',
+        ],
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
             'rules' => [
+                '<id:\d+>' => 'site/index'
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

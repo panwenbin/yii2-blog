@@ -1,8 +1,10 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Post;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\data\ActiveDataProvider;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -12,6 +14,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -68,11 +71,22 @@ class SiteController extends Controller
     /**
      * Displays homepage.
      *
+     * @param null $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
-        return $this->render('index');
+        if ($id) {
+            $post = Post::findOne($id);
+            if (!$post) throw new NotFoundHttpException('此日志不存在，请检查网址。也可能此日志已被删除。');
+        } else {
+            $post = Post::find()->lastPublished()->one();
+        }
+        return $this->render('index', [
+            'id' => $id,
+            'post' => $post,
+        ]);
     }
 
     /**
