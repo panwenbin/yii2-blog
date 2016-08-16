@@ -13,23 +13,22 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="post-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <span class="pull-right"><a data-toggle="隐藏搜索" href="#" onclick="javascript:(function(ele){$('.post-search').toggle(); var data = $(ele).attr('data-toggle'); $(ele).attr('data-toggle', $(ele).html()); $(ele).html(data);})(this);">显示搜索</a></span>
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('写日志', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'user_id',
             'title',
-            'content:ntext',
+            [
+                'label' => '作者',
+                'attribute' => 'user.username',
+            ],
             'created_at:datetime',
-            'updated_at:datetime',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
