@@ -42,7 +42,7 @@ return [
         ],
         'urlManager' => [
             'rules' => [
-                '<id:\d+>' => 'site/index'
+                '<id:\d+>' => 'site/index',
             ],
         ],
     ],
