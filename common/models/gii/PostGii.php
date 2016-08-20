@@ -13,6 +13,7 @@ use Yii;
  * @property string $content
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $archive_of_id
  */
 class PostGii extends \yii\db\ActiveRecord
 {
@@ -31,7 +32,7 @@ class PostGii extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'title', 'content'], 'required'],
-            [['user_id', 'created_at', 'updated_at'], 'integer'],
+            [['user_id', 'created_at', 'updated_at', 'archive_of_id'], 'integer'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 255],
         ];
@@ -49,6 +50,7 @@ class PostGii extends \yii\db\ActiveRecord
             'content' => '内容',
             'created_at' => '发布时间',
             'updated_at' => '修改时间',
+            'archive_of_id' => '是哪篇的存档',
         ];
     }
 }
