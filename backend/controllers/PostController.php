@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\PostUpdateForm;
 use Yii;
 use common\models\Post;
 use common\models\PostSearch;
@@ -93,6 +94,7 @@ class PostController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model = new PostUpdateForm($model);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

@@ -15,6 +15,8 @@ use yii\behaviors\TimestampBehavior;
  * @property User $user
  * @property Post $nextPost
  * @property Post $prevPost
+ * @property Post[] $archives
+ * @property Post $latest
  */
 class Post extends PostGii
 {
@@ -39,7 +41,7 @@ class Post extends PostGii
      */
     public function getNextPost()
     {
-        return self::find()->andWhere(['>', 'created_at', $this->created_at])->orderBy('created_at ASC')->limit(1);
+        return self::find()->andWhere(['>', 'created_at', $this->created_at])->andWhere(['archive_of_id' => null])->orderBy('created_at ASC')->limit(1);
     }
 
     /**
@@ -47,7 +49,25 @@ class Post extends PostGii
      */
     public function getPrevPost()
     {
-        return self::find()->andWhere(['<', 'created_at', $this->created_at])->orderBy('created_at DESC')->limit(1);
+        return self::find()->andWhere(['<', 'created_at', $this->created_at])->andWhere(['archive_of_id' => null])->orderBy('created_at DESC')->limit(1);
+    }
+
+    /**
+     * 获取此新版日志的旧版存档列表
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArchives()
+    {
+        return $this->hasMany(Post::className(), ['archive_of_id' => 'id'])->inverseOf('latest');
+    }
+
+    /**
+     * 获取此存档日志的最新版本日志
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLatest()
+    {
+        return $this->hasOne(Post::className(), ['id' => 'archive_of_id'])->inverseOf('archives');
     }
 
     /**

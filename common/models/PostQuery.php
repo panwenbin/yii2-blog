@@ -12,6 +12,6 @@ class PostQuery extends ActiveQuery
 {
     public function lastPublished()
     {
-        return $this->limit(1)->orderBy('created_at');
+        return $this->limit(1)->orderBy('created_at DESC');
     }
 }

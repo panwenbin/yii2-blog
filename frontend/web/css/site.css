@@ -114,6 +114,16 @@ a.desc:after {
     margin-bottom: 1rem;
 }
 
+.blog-header span {
+    font-size: 1.2rem;
+    color: #666;
+}
+
 .body-footer div {
     margin-top: 0.3rem;
+}
+
+.notify-latest h3, .notify-archives h3{
+    font-size: 1.4rem;
+    color: #666;
 }
