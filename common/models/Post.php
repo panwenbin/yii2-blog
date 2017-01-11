@@ -23,7 +23,7 @@ use yii\helpers\ArrayHelper;
  */
 class Post extends PostGii
 {
-    protected $tagNames;
+    protected $tagNames; // 用于接收提交的标签数组
 
     public function behaviors()
     {
@@ -39,10 +39,20 @@ class Post extends PostGii
         ]);
     }
 
+    public function attributeLabels()
+    {
+        return array_merge(parent::attributeLabels(), [
+            'tagNames' => '标签',
+        ]);
+    }
+
+    /**
+     * 读取接收到的标签数组，否则读取旧数据的标签数组
+     * @return array
+     */
     public function getTagNames()
     {
         if ($this->tagNames) return $this->tagNames;
-
         return ArrayHelper::getColumn($this->tags, 'name');
     }
 
