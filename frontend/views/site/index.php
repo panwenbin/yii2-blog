@@ -26,6 +26,15 @@ $this->title .= Yii::$app->name;
         <div class="blog-header">
             <h1><?= $post->title ?></h1>
             <span>本条日志发表于 <?= Yii::$app->getFormatter()->asDatetime($post->created_at) ?></span>
+            <span>
+                <?php
+                $tagHtmls = [];
+                foreach ($post->tags as $tag) {
+                    $tagHtmls[] = Html::a($tag->name, Url::to('tag/' . $tag->name));
+                }
+                ?>
+                <?= $tagHtmls ? '标签: ' . join(', ', $tagHtmls) : '' ?>
+            </span>
         </div>
 
         <div class="body-content">
