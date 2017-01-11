@@ -94,10 +94,10 @@ class PostController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model = new PostUpdateForm($model);
+        $updatePost = new PostUpdateForm($model);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($updatePost->load(Yii::$app->request->post(), 'Post') && $updatePost->save()) {
+            return $this->redirect(['view', 'id' => $updatePost->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

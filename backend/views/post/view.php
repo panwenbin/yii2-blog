@@ -31,6 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'user_id',
             'title',
+            [
+                'attribute' => 'tagNames',
+                'value' => join(',', $model->getTagNames()),
+            ],
             'content:markdown',
             'created_at:datetime',
             'updated_at:datetime',

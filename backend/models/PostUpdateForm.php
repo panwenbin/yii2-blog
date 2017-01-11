@@ -19,7 +19,7 @@ class PostUpdateForm extends Post
     public function __construct(Post $oldPost, array $config = [])
     {
         $this->oldPost = $oldPost;
-        $this->load($oldPost->toArray(), '');
+        $this->attributes = $oldPost->attributes;
         parent::__construct($config);
     }
 
@@ -56,7 +56,7 @@ class PostUpdateForm extends Post
     public function normalUpdate($runValidation = true, $attributeNames = null)
     {
         $this->id = $this->oldPost->id;
-        $this->oldPost->load(Yii::$app->getRequest()->post(), $this->formName());
+        $this->oldPost->load(Yii::$app->getRequest()->post());
         return $this->oldPost->save($runValidation, $attributeNames);
     }
 
