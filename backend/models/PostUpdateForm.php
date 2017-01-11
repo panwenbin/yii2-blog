@@ -6,14 +6,12 @@
 namespace backend\models;
 
 
-use common\models\Post;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 class PostUpdateForm extends Post
 {
-    public $makeOldAsArchive;
     private $oldPost;
 
     public function __construct(Post $oldPost, array $config = [])
@@ -21,20 +19,6 @@ class PostUpdateForm extends Post
         $this->oldPost = $oldPost;
         $this->attributes = $oldPost->attributes;
         parent::__construct($config);
-    }
-
-    public function rules()
-    {
-        return array_merge(parent::rules(), [
-            [['makeOldAsArchive'], 'safe'],
-        ]);
-    }
-
-    public function attributeLabels()
-    {
-        return array_merge(parent::attributeLabels(), [
-            'makeOldAsArchive' => '作为新版发布，把旧版存档',
-        ]);
     }
 
     public function save($runValidation = true, $attributeNames = null)
@@ -72,7 +56,7 @@ class PostUpdateForm extends Post
         if (($model = Post::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.222');
+            throw new NotFoundHttpException('无法找到此篇日志');
         }
     }
 }

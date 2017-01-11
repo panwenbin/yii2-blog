@@ -23,6 +23,7 @@ use yii\helpers\ArrayHelper;
  */
 class Post extends PostGii
 {
+    public $makeOldAsArchive;
     protected $tagNames; // 用于接收提交的标签数组
 
     public function behaviors()

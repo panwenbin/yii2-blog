@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use backend\models\PostUpdateForm;
 use Yii;
-use common\models\Post;
+use backend\models\Post;
 use common\models\PostSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
