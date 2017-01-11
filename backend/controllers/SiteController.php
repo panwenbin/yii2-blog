@@ -62,7 +62,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $numbers = [];
-        $numbers['post'] = Post::find()->count();
+        $numbers['post'] = Post::find()->notArchive()->count();
         return $this->render('index', [
             'numbers' => $numbers,
         ]);

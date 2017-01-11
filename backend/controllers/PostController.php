@@ -49,6 +49,10 @@ class PostController extends Controller
         $searchModel = new PostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        /* @var $query \common\models\PostQuery */
+        $query = $dataProvider->query;
+        $query->notArchive();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

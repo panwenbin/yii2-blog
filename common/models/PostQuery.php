@@ -14,4 +14,9 @@ class PostQuery extends ActiveQuery
     {
         return $this->limit(1)->orderBy('created_at DESC');
     }
+
+    public function notArchive()
+    {
+        return $this->andWhere(['archive_of_id' => null]);
+    }
 }
