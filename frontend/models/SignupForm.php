@@ -55,4 +55,17 @@ class SignupForm extends Model
         
         return $user->save() ? $user : null;
     }
+
+    /**
+     * 属性Labels
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => '用户名',
+            'email' => 'E-mail',
+            'password' => '密码',
+        ];
+    }
 }
