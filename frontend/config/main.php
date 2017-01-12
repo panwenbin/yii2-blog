@@ -43,6 +43,7 @@ return [
         'urlManager' => [
             'rules' => [
                 '<id:\d+>' => 'site/index',
+                'tag/<tag:\w+>' => 'site/tag',
             ],
         ],
     ],

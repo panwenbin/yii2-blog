@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\Post;
+use common\models\Tag;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\data\ActiveDataProvider;
@@ -86,6 +87,15 @@ class SiteController extends Controller
         return $this->render('index', [
             'id' => $id,
             'post' => $post,
+        ]);
+    }
+
+    public function actionTag($tag)
+    {
+        $tag = Tag::findOne(['name' => $tag]);
+
+        return $this->render('tag', [
+            'tag' => $tag,
         ]);
     }
 
