@@ -48,6 +48,15 @@ class Post extends PostGii
     }
 
     /**
+     * 是否是存档
+     * @return bool
+     */
+    public function isArchive()
+    {
+        return $this->archive_of_id != null;
+    }
+
+    /**
      * 读取接收到的标签数组，否则读取旧数据的标签数组
      * @return array
      */

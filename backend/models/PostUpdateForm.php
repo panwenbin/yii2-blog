@@ -30,6 +30,12 @@ class PostUpdateForm extends Post
         }
     }
 
+    /**
+     * 保存新的Post，并更新存档指向
+     * @param bool $runValidation
+     * @param null $attributeNames
+     * @return bool
+     */
     public function archiveUpdate($runValidation = true, $attributeNames = null)
     {
         $result = parent::save($runValidation, $attributeNames);
@@ -37,6 +43,12 @@ class PostUpdateForm extends Post
         return $result;
     }
 
+    /**
+     * 普通更新
+     * @param bool $runValidation
+     * @param null $attributeNames
+     * @return bool
+     */
     public function normalUpdate($runValidation = true, $attributeNames = null)
     {
         $this->id = $this->oldPost->id;
