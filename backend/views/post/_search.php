@@ -8,6 +8,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\PostSearch */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $user common\models\User */
+$user = Yii::$app->getUser()->getIdentity();
 ?>
 
 <div class="post-search" style="display:none;">
@@ -19,7 +21,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
+    <?php if ($user && $user->isAdmin()): ?>
     <?= $form->field($model, 'user_id')->dropDownList(ArrayHelper::map(User::find()->all(), 'id', 'username'), ['prompt' => '不限作者'])->label('作者') ?>
+    <?php endif; ?>
 
     <?= $form->field($model, 'title') ?>
 

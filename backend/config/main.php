@@ -48,4 +48,5 @@ return [
         */
     ],
     'params' => $params,
+    'on beforeRequest' => ['common\models\PostQuery', 'limitToOwnPosts'],
 ];
