@@ -31,8 +31,8 @@ class PostGii extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'title', 'content'], 'required'],
             [['user_id', 'created_at', 'updated_at', 'archive_of_id'], 'integer'],
+            [['title', 'content'], 'required'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 255],
         ];

@@ -14,8 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->dropDownList(ArrayHelper::map([Yii::$app->getUser()->getIdentity()], 'id', 'username'), ['readonly' => 'readonly'])->label('作者') ?>
-
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'tagNames')->widget(\kartik\select2\Select2::className(), [

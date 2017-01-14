@@ -7,6 +7,7 @@ namespace common\models;
 
 
 use common\models\gii\PostGii;
+use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 
@@ -30,6 +31,11 @@ class Post extends PostGii
     {
         return [
             TimestampBehavior::className(),
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'user_id',
+                'updatedByAttribute' => null,
+            ],
         ];
     }
 
