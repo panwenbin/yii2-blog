@@ -30,7 +30,7 @@ $this->title .= Yii::$app->name;
                 <?php
                 $tagHtmls = [];
                 foreach ($post->tags as $tag) {
-                    $tagHtmls[] = Html::a($tag->name, Url::to('tag/' . $tag->name));
+                    $tagHtmls[] = Html::a($tag->name, Url::to(['tag', 'tag' => $tag->name]));
                 }
                 ?>
                 <?= $tagHtmls ? '标签: ' . join(', ', $tagHtmls) : '' ?>
