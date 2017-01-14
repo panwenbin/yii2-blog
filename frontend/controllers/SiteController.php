@@ -162,7 +162,11 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        return $this->render('about');
+        $aboutMd = Post::find()->andWhere(['title' => 'about'])->orderBy('created_at DESC')->one();
+
+        return $this->render('about', [
+            'aboutMd' => $aboutMd,
+        ]);
     }
 
     /**
