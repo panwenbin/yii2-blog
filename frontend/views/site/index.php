@@ -25,7 +25,7 @@ $this->title .= Yii::$app->name;
 
         <div class="blog-header">
             <h1><?= $post->title ?></h1>
-            <span>本条日志发表于 <?= Yii::$app->getFormatter()->asDatetime($post->created_at) ?></span>
+            <span>本条日志由 <?= $post->user->username ?> 发表于 <?= Yii::$app->getFormatter()->asDatetime($post->created_at) ?></span>
             <span>
                 <?php
                 $tagHtmls = [];
