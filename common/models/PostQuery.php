@@ -40,4 +40,9 @@ class PostQuery extends ActiveQuery
             $postQuery->own();
         });
     }
+
+    public function orderRecent()
+    {
+        return $this->orderBy('created_at DESC');
+    }
 }

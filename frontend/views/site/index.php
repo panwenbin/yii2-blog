@@ -11,7 +11,7 @@ use yii\helpers\Url;
 $this->title = $id ? $post->title . ' - ' : '';
 $this->title .= Yii::$app->name;
 ?>
-<div class="site-index">
+<div class="site-index col-md-10">
 
     <?php if ($post): ?>
         <?php if ($post->archive_of_id): ?>
@@ -57,11 +57,19 @@ $this->title .= Yii::$app->name;
 
 
             <div class="body-footer">
-                <div><?= $post->nextPost ? Html::a('< 新一篇：' . $post->nextPost->title, Url::to(['', 'id' => $post->nextPost->id]), ['class' => 'btn btn-success']) : '' ?></div>
-                <div><?= $post->prevPost ? Html::a('> 前一篇：' . $post->prevPost->title, Url::to(['', 'id' => $post->prevPost->id]), ['class' => 'btn btn-success']) : '' ?></div>
+                <div class="pull-left"><?= $post->nextPost ? Html::a('< 新一篇：' . $post->nextPost->title, Url::to(['', 'id' => $post->nextPost->id]), ['class' => 'btn btn-success']) : '' ?></div>
+                <div class="pull-right"><?= $post->prevPost ? Html::a('> 前一篇：' . $post->prevPost->title, Url::to(['', 'id' => $post->prevPost->id]), ['class' => 'btn btn-success']) : '' ?></div>
             </div>
         <?php endif; ?>
     <?php else: ?>
         <h3>目前还没有日志</h3>
     <?php endif; ?>
+</div>
+<div class="sidebar col-md-2">
+    <?= Html::beginForm(['site/search'], 'get', ['class' => "form-inline"]) ?>
+        <div class="form-group">
+            <label class="sr-only" for="s">搜索</label>
+            <input type="text" class="form-control" id="s" name="s" placeholder="搜索">
+        </div>
+    <?= Html::endForm() ?>
 </div>

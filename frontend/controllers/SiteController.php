@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\Post;
+use common\models\PostSearch;
 use common\models\Tag;
 use Yii;
 use yii\base\InvalidParamException;
@@ -236,6 +237,20 @@ class SiteController extends Controller
 
         return $this->render('resetPassword', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionSearch($s)
+    {
+        $searchModel = new PostSearch();
+        $dataProvider = $searchModel->search(['PostSearch' => ['title' => $s, 'content' => $s]]);
+        /* @var $query \common\models\PostQuery */
+        $query = $dataProvider->query;
+        $query->notArchive()->orderRecent();
+
+        return $this->render('search', [
+            's' => $s,
+            'dataProvider' => $dataProvider
         ]);
     }
 }
