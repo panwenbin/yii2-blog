@@ -10,6 +10,7 @@ use common\models\gii\PostGii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 /**
  * Class Post
@@ -195,5 +196,27 @@ class Post extends PostGii
     public static function find()
     {
         return new PostQuery(get_called_class());
+    }
+
+
+    /**
+     * 查找日志
+     *
+     * @param null $id
+     * @param null $title
+     * @return \common\models\Post
+     * @throws NotFoundHttpException
+     */
+    public static function findPostByIdOrTitle($id = null, $title = null)
+    {
+        if ($id) {
+            $post = Post::findOne($id);
+        } else if ($title) {
+            $post = Post::find()->andWhere(['title' => $title])->orderBy('archive_of_id')->one();
+        } else {
+            $post = Post::find()->lastPublished()->one();
+        }
+        if (!$post) throw new NotFoundHttpException('此日志不存在，请检查网址。也可能此日志已被删除。');
+        return $post;
     }
 }

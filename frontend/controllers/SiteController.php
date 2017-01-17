@@ -51,6 +51,16 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
+            [
+                'class' => 'yii\filters\HttpCache',
+                'only' => ['index'],
+                'lastModified' => function ($action, $params) {
+                    $id = Yii::$app->getRequest()->get('id');
+                    $title = Yii::$app->getRequest()->get('title');
+                    $post = Post::findPostByIdOrTitle($id, $title);
+                    return $post->updated_at;
+                },
+            ],
         ];
     }
 
@@ -80,15 +90,8 @@ class SiteController extends Controller
      */
     public function actionIndex($id = null, $title = null)
     {
-        if ($id) {
-            $post = Post::findOne($id);
-            if (!$post) throw new NotFoundHttpException('此日志不存在，请检查网址。也可能此日志已被删除。');
-        } else if ($title) {
-            $post = Post::find()->andWhere(['title' => $title])->orderBy('archive_of_id')->one();
-            if (!$post) throw new NotFoundHttpException('此日志不存在，请检查网址。也可能此日志已被删除。');
-        } else {
-            $post = Post::find()->lastPublished()->one();
-        }
+        $post = Post::findPostByIdOrTitle($id, $title);
+
         return $this->render('index', [
             'id' => $id,
             'post' => $post,
