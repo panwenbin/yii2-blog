@@ -250,10 +250,10 @@ class SiteController extends Controller
     public function actionSearch($s)
     {
         $searchModel = new PostSearch();
-        $dataProvider = $searchModel->search(['PostSearch' => ['title' => $s, 'content' => $s]]);
+        $dataProvider = $searchModel->search([]);
         /* @var $query \common\models\PostQuery */
         $query = $dataProvider->query;
-        $query->notArchive()->orderRecent();
+        $query->andWhere(['or', ['like', 'title', $s], ['like', 'content', $s]])->notArchive()->orderRecent();
 
         return $this->render('search', [
             's' => $s,
