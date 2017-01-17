@@ -23,4 +23,10 @@ class Post extends \common\models\Post
             'makeOldAsArchive' => '作为新版发布，把旧版存档',
         ]);
     }
+
+    public function beforeValidate()
+    {
+        $this->title = str_replace('/', '', $this->title);
+        return parent::beforeValidate();
+    }
 }
