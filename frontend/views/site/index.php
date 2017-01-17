@@ -18,7 +18,7 @@ $this->title .= Yii::$app->name;
             <div class="notify-latest">
                 <h3>此篇日志为存档，请查看最新版本：</h3>
                 <ul>
-                    <li><?= Html::a(Yii::$app->getFormatter()->asDate($post->latest->created_at) . ': ' . $post->latest->title, Url::to(['', 'id' => $post->latest->id])) ?></li>
+                    <li><?= Html::a(Yii::$app->getFormatter()->asDate($post->latest->created_at) . ': ' . $post->latest->title, Url::to(['', 'title' => $post->latest->title])) ?></li>
                 </ul>
             </div>
         <?php endif; ?>
@@ -57,8 +57,8 @@ $this->title .= Yii::$app->name;
 
 
             <div class="body-footer">
-                <div class="pull-left"><?= $post->nextPost ? Html::a('< 新一篇：' . $post->nextPost->title, Url::to(['', 'id' => $post->nextPost->id]), ['class' => 'btn btn-success']) : '' ?></div>
-                <div class="pull-right"><?= $post->prevPost ? Html::a('> 前一篇：' . $post->prevPost->title, Url::to(['', 'id' => $post->prevPost->id]), ['class' => 'btn btn-success']) : '' ?></div>
+                <div class="pull-left"><?= $post->nextPost ? Html::a('< 新一篇：' . $post->nextPost->title, Url::to(['', 'title' => $post->nextPost->title]), ['class' => 'btn btn-success']) : '' ?></div>
+                <div class="pull-right"><?= $post->prevPost ? Html::a('> 前一篇：' . $post->prevPost->title, Url::to(['', 'title' => $post->prevPost->title]), ['class' => 'btn btn-success']) : '' ?></div>
             </div>
         <?php endif; ?>
     <?php else: ?>

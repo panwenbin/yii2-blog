@@ -17,7 +17,7 @@ $this->title = '搜索' . $s;
 <div class="site-index col-md-10">
     <?php foreach ($dataProvider->models as $post): ?>
         <div class="blog-header">
-            <h1><?= Html::a($post->title . ($post->isArchive() ? '[存档]' : ''), Url::to(['index', 'id' => $post->id])) ?></h1>
+            <h1><?= Html::a($post->title . ($post->isArchive() ? '[存档]' : ''), $post->isArchive() ? Url::to(['index', 'id' => $post->id]) : Url::to(['index', 'title' => $post->title])) ?></h1>
             <span>本条日志由 <?= $post->user->username ?>
                 发表于 <?= Yii::$app->getFormatter()->asDatetime($post->created_at) ?></span>
             <span>

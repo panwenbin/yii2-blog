@@ -74,13 +74,17 @@ class SiteController extends Controller
      * Displays homepage.
      *
      * @param null $id
+     * @param null $title
      * @return mixed
      * @throws NotFoundHttpException
      */
-    public function actionIndex($id = null)
+    public function actionIndex($id = null, $title = null)
     {
         if ($id) {
             $post = Post::findOne($id);
+            if (!$post) throw new NotFoundHttpException('此日志不存在，请检查网址。也可能此日志已被删除。');
+        } else if ($title) {
+            $post = Post::find()->andWhere(['title' => $title])->orderBy('archive_of_id')->one();
             if (!$post) throw new NotFoundHttpException('此日志不存在，请检查网址。也可能此日志已被删除。');
         } else {
             $post = Post::find()->lastPublished()->one();
