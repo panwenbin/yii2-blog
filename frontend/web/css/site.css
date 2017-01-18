@@ -127,3 +127,7 @@ a.desc:after {
     font-size: 1.4rem;
     color: #666;
 }
+
+.body-footer {
+    height: 8rem;
+}
