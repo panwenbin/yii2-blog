@@ -25,7 +25,8 @@ $this->title .= Yii::$app->name;
 
         <div class="blog-header">
             <h1><?= $post->title ?></h1>
-            <span>本条日志由 <?= $post->user->username ?> 发表于 <?= Yii::$app->getFormatter()->asDatetime($post->created_at) ?></span>
+            <span>本条日志由 <?= $post->user->username ?>
+                发表于 <?= Yii::$app->getFormatter()->asDatetime($post->created_at) ?></span>
             <span>
                 <?php
                 $tagHtmls = [];
@@ -39,7 +40,7 @@ $this->title .= Yii::$app->name;
 
         <div class="body-content">
 
-            <?= Markdown::process($post->content) ?>
+            <?= Markdown::process($post->content, 'gfm') ?>
 
         </div>
 
@@ -67,9 +68,9 @@ $this->title .= Yii::$app->name;
 </div>
 <div class="sidebar col-md-2">
     <?= Html::beginForm(['site/search'], 'get', ['class' => "form-inline"]) ?>
-        <div class="form-group">
-            <label class="sr-only" for="s">搜索</label>
-            <input type="text" class="form-control" id="s" name="s" placeholder="搜索">
-        </div>
+    <div class="form-group">
+        <label class="sr-only" for="s">搜索</label>
+        <input type="text" class="form-control" id="s" name="s" placeholder="搜索">
+    </div>
     <?= Html::endForm() ?>
 </div>
