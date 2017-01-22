@@ -14,7 +14,7 @@ use yii\helpers\Url;
     </div>
     <ul>
         <?php if ($tag) foreach ($tag->notArchivedPosts as $post): ?>
-            <li><?= Html::a(Yii::$app->getFormatter()->asDate($post->created_at) . ': ' . $post->title, Url::to(['site/index', 'id' => $post->id])) ?></li>
+            <li><?= Html::a(Yii::$app->getFormatter()->asDate($post->created_at) . ': ' . $post->title, Url::to(['site/index', 'title' => $post->title])) ?></li>
         <?php endforeach; ?>
     </ul>
 </div>
