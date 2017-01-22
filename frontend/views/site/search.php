@@ -14,15 +14,15 @@ use yii\helpers\Url;
 $this->title = '搜索: ' . $s;
 ?>
 
-<div class="site-index col-md-10">
+<div class="col-md-10">
     <h1><?= $this->title ?></h1>
-<?php if($dataProvider->models): ?>
-    <?php foreach ($dataProvider->models as $post): ?>
-        <div class="blog-header">
-            <h2><?= Html::a($post->title . ($post->isArchive() ? '[存档]' : ''), $post->isArchive() ? Url::to(['index', 'id' => $post->id]) : Url::to(['index', 'title' => $post->title])) ?></h2>
-            <span>本条日志由 <?= $post->user->username ?>
-                发表于 <?= Yii::$app->getFormatter()->asDatetime($post->created_at) ?></span>
-            <span>
+    <?php if ($dataProvider->models): ?>
+        <?php foreach ($dataProvider->models as $post): ?>
+            <div class="blog-header">
+                <h2><?= Html::a($post->title . ($post->isArchive() ? '[存档]' : ''), $post->isArchive() ? Url::to(['index', 'id' => $post->id]) : Url::to(['index', 'title' => $post->title])) ?></h2>
+                <span>本条日志由 <?= $post->user->username ?>
+                    发表于 <?= Yii::$app->getFormatter()->asDatetime($post->created_at) ?></span>
+                <span>
                 <?php
                 $tagHtmls = [];
                 foreach ($post->tags as $tag) {
@@ -31,19 +31,13 @@ $this->title = '搜索: ' . $s;
                 ?>
                 <?= $tagHtmls ? '标签: ' . join(', ', $tagHtmls) : '' ?>
             </span>
-        </div>
-    <?php endforeach; ?>
-<?php else: ?>
-    <h3>没有找到日志</h3>
-<?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <h3>没有找到日志</h3>
+    <?php endif; ?>
 </div>
 <div class="sidebar col-md-2">
-    <?= Html::beginForm(['site/search'], 'get', ['class' => "form-inline"]) ?>
-    <div class="form-group">
-        <label class="sr-only" for="s">搜索</label>
-        <?= Html::input('text', 's', $s, ['class' => 'form-control', 'placeholder' => '搜索']) ?>
-    </div>
-    <?= Html::endForm() ?>
+    <?= $this->render('_sidebar') ?>
 </div>
-
 

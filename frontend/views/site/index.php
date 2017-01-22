@@ -67,10 +67,5 @@ $this->title .= Yii::$app->name;
     <?php endif; ?>
 </div>
 <div class="sidebar col-md-2">
-    <?= Html::beginForm(['site/search'], 'get', ['class' => "form-inline"]) ?>
-    <div class="form-group">
-        <label class="sr-only" for="s">搜索</label>
-        <input type="text" class="form-control" id="s" name="s" placeholder="搜索">
-    </div>
-    <?= Html::endForm() ?>
+    <?= $this->render('_sidebar') ?>
 </div>
