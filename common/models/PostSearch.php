@@ -43,6 +43,8 @@ class PostSearch extends Post
     {
         $query = Post::find();
 
+        $query->orderBy('id desc');
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
