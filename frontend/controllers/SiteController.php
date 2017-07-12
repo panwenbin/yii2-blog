@@ -7,6 +7,7 @@ use common\models\Tag;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\data\ActiveDataProvider;
+use yii\db\Expression;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -91,10 +92,20 @@ class SiteController extends Controller
     public function actionIndex($id = null, $title = null)
     {
         $post = Post::findPostByIdOrTitle($id, $title);
+        $relatedPostIds = $post->getRelatedPostTagRelations()
+            ->select('post_id')
+            ->andWhere(['not', ['post_id' => $post->id]])
+            ->groupBy('post_id')
+            ->orderBy('count(post_id) desc')
+            ->column();
+        $relatedPosts = Post::find()
+            ->andWhere(new Expression('FIND_IN_SET(id, :ids)', [':ids' => join(',', $relatedPostIds)]))
+            ->select('title, created_at')->notArchive()->limit(10)->all();
 
         return $this->render('index', [
             'id' => $id,
             'post' => $post,
+            'relatedPosts' => $relatedPosts,
         ]);
     }
 

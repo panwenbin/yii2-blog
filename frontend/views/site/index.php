@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 /* @var $post common\models\Post */
 /* @var $id integer */
+/* @var \common\models\Post[] $relatedPosts */
 
 use yii\bootstrap\Html;
 use yii\helpers\Markdown;
@@ -61,6 +62,19 @@ $this->title .= Yii::$app->name;
                 <div class="pull-left"><?= $post->nextPost ? Html::a('< 新一篇：' . $post->nextPost->title, Url::to(['', 'title' => $post->nextPost->title]), ['class' => 'btn btn-success']) : '' ?></div>
                 <div class="pull-right"><?= $post->prevPost ? Html::a('> 前一篇：' . $post->prevPost->title, Url::to(['', 'title' => $post->prevPost->title]), ['class' => 'btn btn-success']) : '' ?></div>
             </div>
+
+            <?php if ($relatedPosts): ?>
+                <div class="related">
+                    <h3>相关日志</h3>
+                    <ul>
+                        <?php foreach ($relatedPosts as $relatedPost): ?>
+                            <li><?= Html::a($relatedPost->title, Url::to(['', 'title' => $relatedPost->title])) ?>
+                                [<?= Yii::$app->getFormatter()->asDate($relatedPost->created_at) ?>]
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
     <?php else: ?>
         <h3>目前还没有日志</h3>

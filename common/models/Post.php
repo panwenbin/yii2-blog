@@ -21,6 +21,8 @@ use yii\web\NotFoundHttpException;
  * @property Post[] $archives
  * @property Post $latest
  * @property PostTagRelation[] $postTagRelations
+ * @property PostTagRelation[] $relatedPostTagRelations
+ * @property Post[] $relatedPosts
  * @property Tag[] $tags
  */
 class Post extends PostGii
@@ -138,6 +140,7 @@ class Post extends PostGii
     }
 
     /**
+     * 后一篇日志
      * @return PostQuery
      */
     public function getNextPost()
@@ -146,6 +149,7 @@ class Post extends PostGii
     }
 
     /**
+     * 前一篇日志
      * @return PostQuery
      */
     public function getPrevPost()
@@ -187,6 +191,27 @@ class Post extends PostGii
     public function getTags()
     {
         return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->via('postTagRelations');
+    }
+
+    /**
+     * 获取关联的PostTagRelation
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRelatedPostTagRelations()
+    {
+        return $this->hasMany(PostTagRelation::className(), ['tag_id' => 'tag_id'])->via('postTagRelations');
+    }
+
+    /**
+     * 获取关联的日志
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRelatedPosts()
+    {
+        return $this->hasMany(Post::className(), ['id' => 'post_id'])
+            ->andOnCondition(['not', ['id' => $this->id]])
+            ->andOnCondition(['archive_of_id' => null])
+            ->via('relatedPostTagRelations');
     }
 
     /**
