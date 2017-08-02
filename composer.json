@@ -19,7 +19,8 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "panwenbin/yii2-simplemde-markdown-editor": "^0.0.1",
-        "kartik-v/yii2-widget-select2": "^2.0"
+        "kartik-v/yii2-widget-select2": "^2.0",
+        "nezhelskoy/yii2-highlight": "^1.2"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

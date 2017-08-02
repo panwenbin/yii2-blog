@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "226dc649a954e833b15f7bbaa71b6b0c",
-    "content-hash": "84c8f53126258106b6886de29912dffb",
+    "hash": "600fa41a70877f3a9d7cc572da422b0e",
+    "content-hash": "0b3adcfc8af2eb2c18a63fbeae403fdb",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -440,6 +440,55 @@
                 "yii2"
             ],
             "time": "2016-02-17 11:49:30"
+        },
+        {
+            "name": "nezhelskoy/yii2-highlight",
+            "version": "v1.2.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nezhelskoy/yii2-highlight.git",
+                "reference": "e5a6653f53e1d0105261c3ed6f4ee22662ba34a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/nezhelskoy/yii2-highlight/e5a6653f53e1d0105261c3ed6f4ee22662ba34a8.zip",
+                "reference": "e5a6653f53e1d0105261c3ed6f4ee22662ba34a8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "~2"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "nezhelskoy\\highlight\\": "src/",
+                    "nezhelskoy\\highlight\\examples\\": "examples/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry A. Nezhelskoy",
+                    "email": "dmitry@nezhelskoy.pro",
+                    "homepage": "http://nezhelskoy.pro"
+                }
+            ],
+            "description": "Yii2 highlight.js extension",
+            "keywords": [
+                "highlight",
+                "highlight.js",
+                "yii2"
+            ],
+            "time": "2017-03-08 13:50:49"
         },
         {
             "name": "panwenbin/yii2-simplemde-markdown-editor",

@@ -9,11 +9,12 @@ use yii\bootstrap\Html;
 use yii\helpers\Markdown;
 use yii\helpers\Url;
 
+nezhelskoy\highlight\HighlightAsset::register($this);
+
 $this->title = $id ? $post->title . ' - ' : '';
 $this->title .= Yii::$app->name;
 ?>
 <div class="site-index col-md-10">
-
     <?php if ($post): ?>
         <?php if ($post->archive_of_id): ?>
             <div class="notify-latest">
