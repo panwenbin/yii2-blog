@@ -234,12 +234,14 @@ class Post extends PostGii
      */
     public static function findPostByIdOrTitle($id = null, $title = null)
     {
+        /* @var \common\models\Post $post */
         if ($id) {
             $post = Post::findOne($id);
         } else if ($title) {
             $post = Post::find()->andWhere(['title' => $title])->orderBy('archive_of_id')->one();
         } else {
             $post = Post::find()->lastPublished()->one();
+            return $post;
         }
         if (!$post) throw new NotFoundHttpException('此日志不存在，请检查网址。也可能此日志已被删除。');
         return $post;

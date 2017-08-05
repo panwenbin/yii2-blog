@@ -11,7 +11,7 @@ use yii\helpers\Url;
 
 nezhelskoy\highlight\HighlightAsset::register($this);
 
-$this->title = $id ? $post->title . ' - ' : '';
+$this->title = $post ? $post->title . ' - ' : '';
 $this->title .= Yii::$app->name;
 ?>
 <div class="site-index col-md-10">
@@ -20,7 +20,10 @@ $this->title .= Yii::$app->name;
             <div class="notify-latest">
                 <h3>此篇日志为存档，请查看最新版本：</h3>
                 <ul>
-                    <li><?= Html::a(Yii::$app->getFormatter()->asDate($post->latest->created_at) . ': ' . $post->latest->title, Url::to(['', 'title' => $post->latest->title])) ?></li>
+                    <li>
+                        <?= Html::a(Yii::$app->getFormatter()->asDate($post->latest->created_at) . ': ' . $post->latest->title, Url::to(['', 'title' => $post->latest->title])) ?>
+                        <?= Html::a('diff', Url::to(['diff', 'id1' => $post->id, 'id2' => $post->latest->id]), ['class' => 'diff-code label label-warning', 'data-toggle'=>'modal', 'data-target'=>'#diff-modal']) ?>
+                    </li>
                 </ul>
             </div>
         <?php endif; ?>
@@ -52,7 +55,10 @@ $this->title .= Yii::$app->name;
                     <h3>此篇日志有如下历史版本：</h3>
                     <ul>
                         <?php foreach ($post->archives as $archivePost): ?>
-                            <li><?= Html::a(Yii::$app->getFormatter()->asDate($archivePost->created_at) . ': ' . $archivePost->title, Url::to(['', 'id' => $archivePost->id])) ?></li>
+                            <li>
+                                <?= Html::a(Yii::$app->getFormatter()->asDate($archivePost->created_at) . ': ' . $archivePost->title, Url::to(['', 'id' => $archivePost->id])) ?>
+                                <?= Html::a('diff', Url::to(['diff', 'id1' => $archivePost->id, 'id2' => $post->id]), ['class' => 'diff-code label label-warning', 'data-toggle'=>'modal', 'data-target'=>'#diff-modal']) ?>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -83,4 +89,11 @@ $this->title .= Yii::$app->name;
 </div>
 <div class="sidebar col-md-2">
     <?= $this->render('_sidebar') ?>
+</div>
+
+<div class="modal fade" id="diff-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
 </div>

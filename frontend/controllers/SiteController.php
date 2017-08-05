@@ -1,22 +1,23 @@
 <?php
+
 namespace frontend\controllers;
 
+use common\components\DiffRendererHtmlInline;
+use common\models\LoginForm;
 use common\models\Post;
 use common\models\PostSearch;
 use common\models\Tag;
-use Yii;
-use yii\base\InvalidParamException;
-use yii\data\ActiveDataProvider;
-use yii\db\Expression;
-use yii\web\BadRequestHttpException;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
+use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
-use frontend\models\ContactForm;
+use Yii;
+use yii\base\InvalidParamException;
+use yii\db\Expression;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -270,5 +271,34 @@ class SiteController extends Controller
             's' => $s,
             'dataProvider' => $dataProvider
         ]);
+    }
+
+    /**
+     * 查看日志的markdown文本差异
+     * 在模态框中加载
+     * @param $id1
+     * @param $id2
+     * @return string
+     */
+    public function actionDiff($id1, $id2)
+    {
+        $posts = Post::findAll(['id' => [$id1, $id2]]);
+        if (count($posts) != 2) {
+            $diffRender = false;
+        } else {
+            $lines1 = explode("\n", $posts[0]->content);
+            $lines2 = explode("\n", $posts[1]->content);
+            array_walk($lines1, function (&$line) {
+                $line = trim($line);
+            });
+            array_walk($lines2, function (&$line) {
+                $line = trim($line);
+            });
+            $diff = new \Diff($lines1, $lines2);
+            $renderer = new DiffRendererHtmlInline;
+            $diffRender = $diff->Render($renderer);
+        }
+
+        return $this->renderPartial('diff', ['diff' => $diffRender]);
     }
 }
