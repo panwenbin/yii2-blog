@@ -21,7 +21,8 @@
         "panwenbin/yii2-simplemde-markdown-editor": "^0.0.1",
         "kartik-v/yii2-widget-select2": "^2.0",
         "nezhelskoy/yii2-highlight": "^1.2",
-        "phpspec/php-diff": "^1.1"
+        "phpspec/php-diff": "^1.1",
+        "dmstr/yii2-adminlte-asset": "^2.6"
     },
     "require-dev": {
         "codeception/codeception": "*",

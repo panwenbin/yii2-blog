@@ -46,6 +46,13 @@ return [
             ],
         ],
         */
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@app/adminlte-views'
+                ],
+            ],
+        ],
     ],
     'params' => $params,
     'on beforeRequest' => ['common\models\PostQuery', 'limitToOwnPosts'],

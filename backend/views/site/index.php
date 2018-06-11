@@ -1,17 +1,27 @@
 <?php
 
 /* @var $this yii\web\View */
+
 /* @var $numbers array */
 
 use yii\helpers\Url;
 
 $this->title = '控制台';
-$this->title .= '- ' . Yii::$app->name;
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-index">
 
-    <a class="btn btn-primary" type="button" href="<?=Url::to(['post/index'])?>">
-        日志 <span class="badge"><?=$numbers['post']?></span>
+    <a href="<?= Url::to(['post/index']) ?>">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa fa-files-o"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">日志</span>
+                    <span class="info-box-number"><?= $numbers['post'] ?></span>
+                </div>
+            </div>
+        </div>
     </a>
 
 </div>

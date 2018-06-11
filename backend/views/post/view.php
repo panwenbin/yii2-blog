@@ -22,8 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     <?php endif; ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('更新日志', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('删除日志', ['delete', 'id' => $model->id], [
