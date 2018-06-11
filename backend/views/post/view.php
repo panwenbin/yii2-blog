@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Markdown;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
 
@@ -33,24 +34,22 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            [
-                'attribute' => 'user.username',
-                'label' => '作者',
-            ],
-            'title',
-            [
-                'attribute' => 'tagNames',
-                'value' => join(',', $model->getTagNames()),
-            ],
-            'content:markdown',
-            'created_at:datetime',
-            'updated_at:datetime',
-        ],
-    ]) ?>
+    <div class="blog-header container-fluid bg-gray-light">
+        <h1><?= $model->title ?></h1>
+        <span>本条日志由 <?= $model->user->username ?>
+            发表于 <?= Yii::$app->getFormatter()->asDatetime($model->created_at) ?></span>
+        <span>
+                <?php
+                $tagHtmls = [];
+                foreach ($model->tags as $tag) {
+                    $tagHtmls[] = Html::a($tag->name, '#');
+                }
+                ?>
+                <?= $tagHtmls ? '标签: ' . join(', ', $tagHtmls) : '' ?>
+            </span>
+
+            <?= Markdown::process($model->content, 'gfm') ?>
+    </div>
 
     <?php if (is_null($model->archive_of_id)): ?>
         <?php if ($model->archives): ?>

@@ -22,14 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
 
-            'title',
+            [
+                'attribute' => 'title',
+                'format' => 'raw',
+                'value' => function(\common\models\Post $post) {
+                    return Html::a($post->title, ['view', 'id' => $post->id]);
+                },
+            ],
             [
                 'label' => '作者',
                 'attribute' => 'user.username',
             ],
             'created_at:datetime',
-
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>
