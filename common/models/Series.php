@@ -89,4 +89,13 @@ class Series extends SeriesGii
             }
         }
     }
+
+    /**
+     * @inheritdoc
+     * @return SeriesQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new SeriesQuery(get_called_class());
+    }
 }

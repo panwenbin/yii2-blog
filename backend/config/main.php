@@ -55,5 +55,5 @@ return [
         ],
     ],
     'params' => $params,
-    'on beforeRequest' => ['common\models\PostQuery', 'limitToOwnPosts'],
+    'on beforeRequest' => ['common\handlers\LimitToOwn', 'backend'],
 ];
