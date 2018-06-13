@@ -90,6 +90,16 @@ class Series extends SeriesGii
         }
     }
 
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        /**
+         * 处理PostSeriesRelation
+         */
+        PostSeriesRelation::deleteAll(['series_id' => $this->id]);
+    }
+
     /**
      * @inheritdoc
      * @return SeriesQuery the active query used by this AR class.
