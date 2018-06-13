@@ -1,7 +1,9 @@
 <?php
+
 namespace backend\controllers;
 
 use common\models\Post;
+use common\models\Series;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -63,6 +65,7 @@ class SiteController extends Controller
     {
         $numbers = [];
         $numbers['post'] = Post::find()->notArchive()->count();
+        $numbers['series'] = Series::find()->count();
         return $this->render('index', [
             'numbers' => $numbers,
         ]);

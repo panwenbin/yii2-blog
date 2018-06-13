@@ -44,6 +44,7 @@ return [
             'rules' => [
                 '<id:\d+>' => 'site/index',
                 'tag/<tag:\w+>' => 'site/tag',
+                'series/<title:\w+>' => 'site/series',
                 '<title:[^/]+>' => 'site/index',
             ],
         ],

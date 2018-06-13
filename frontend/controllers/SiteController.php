@@ -6,6 +6,8 @@ use common\components\DiffRendererHtmlInline;
 use common\models\LoginForm;
 use common\models\Post;
 use common\models\PostSearch;
+use common\models\PostSeriesRelation;
+use common\models\Series;
 use common\models\Tag;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
@@ -102,20 +104,70 @@ class SiteController extends Controller
         $relatedPosts = Post::find()
             ->andWhere(new Expression('FIND_IN_SET(id, :ids)', [':ids' => join(',', $relatedPostIds)]))
             ->select('title, created_at')->notArchive()->limit(10)->all();
+        $postSeriesRelation = PostSeriesRelation::findOne(['post_title' => $post->title]);
+        $series = $postSeriesRelation ? $postSeriesRelation->series : null;
 
         return $this->render('index', [
             'id' => $id,
             'post' => $post,
             'relatedPosts' => $relatedPosts,
+            'series' => $series,
         ]);
     }
 
+    /**
+     * @param $condition
+     * @return Tag|null
+     * @throws NotFoundHttpException
+     */
+    protected function findTagThrow($condition)
+    {
+        $tag = Tag::findOne($condition);
+        if (is_null($tag)) {
+            throw new NotFoundHttpException('标签未找到');
+        }
+        return $tag;
+    }
+
+    /**
+     * @param $tag
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionTag($tag)
     {
-        $tag = Tag::findOne(['name' => $tag]);
+        $tag = $this->findTagThrow(['name' => $tag]);
 
         return $this->render('tag', [
             'tag' => $tag,
+        ]);
+    }
+
+    /**
+     * @param $title
+     * @return Series|null
+     * @throws NotFoundHttpException
+     */
+    protected function findSeriesThrow($title)
+    {
+        $series = Series::findOne(['title' => $title]);
+        if (is_null($series)) {
+            throw new NotFoundHttpException('系列未找到');
+        }
+        return $series;
+    }
+
+    /**
+     * @param $title
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionSeries($title)
+    {
+        $series = $this->findSeriesThrow(['title' => $title]);
+
+        return $this->render('series', [
+            'series' => $series,
         ]);
     }
 

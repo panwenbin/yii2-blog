@@ -24,11 +24,13 @@ use yii\web\NotFoundHttpException;
  * @property PostTagRelation[] $relatedPostTagRelations
  * @property Post[] $relatedPosts
  * @property Tag[] $tags
+ * @property PostSeriesRelation $postSeriesRelation
  */
 class Post extends PostGii
 {
     public $makeOldAsArchive;
     protected $tagNames; // 用于接收提交的标签数组
+    protected $seriesId; // 用于接收提交的系列ID
 
     public function behaviors()
     {
@@ -46,6 +48,7 @@ class Post extends PostGii
     {
         return array_merge(parent::rules(), [
             ['tagNames', 'safe'],
+            ['seriesId', 'integer'],
         ]);
     }
 
@@ -75,11 +78,40 @@ class Post extends PostGii
         return ArrayHelper::getColumn($this->tags, 'name');
     }
 
+    /**
+     * 设置Tag名称
+     * @param $tagNames
+     */
     public function setTagNames($tagNames)
     {
         $this->tagNames = $tagNames;
     }
 
+    /**
+     * 获取系列ID
+     * @return int
+     */
+    public function getSeriesId()
+    {
+        if ($this->seriesId) return $this->seriesId;
+        return $this->postSeriesRelation ? $this->postSeriesRelation->series_id : null;
+    }
+
+    /**
+     * 设置系列ID
+     * @param $seriesId
+     */
+    public function setSeriesId($seriesId)
+    {
+        $this->seriesId = $seriesId;
+    }
+
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
@@ -126,6 +158,26 @@ class Post extends PostGii
                 if (in_array($createTag->id, $oldTagIds) == false) {
                     $this->link('tags', $createTag);
                 }
+            }
+        }
+
+        /**
+         * 处理系列
+         */
+        if (!is_null($this->seriesId)) {
+            $title = isset($changedAttributes['title']) ? $changedAttributes['title'] : $this->title;
+            $postSeriesRelation = PostSeriesRelation::findOne(['post_title' => $title]);
+            if (empty($this->seriesId)) {
+                if ($postSeriesRelation) {
+                    $postSeriesRelation->delete();
+                }
+            } else {
+                if (empty($postSeriesRelation)) {
+                    $postSeriesRelation = new PostSeriesRelation();
+                }
+                $postSeriesRelation->post_title = $this->title;
+                $postSeriesRelation->series_id = $this->seriesId;
+                $postSeriesRelation->save();
             }
         }
     }
@@ -212,6 +264,15 @@ class Post extends PostGii
             ->andOnCondition(['not', ['id' => $this->id]])
             ->andOnCondition(['archive_of_id' => null])
             ->via('relatedPostTagRelations');
+    }
+
+    /**
+     * 关联PostSeriesRelation
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPostSeriesRelation()
+    {
+        return $this->hasOne(PostSeriesRelation::className(), ['post_title' => 'title']);
     }
 
     /**

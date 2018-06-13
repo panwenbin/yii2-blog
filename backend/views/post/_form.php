@@ -24,6 +24,14 @@ use yii\widgets\ActiveForm;
         ],
     ]) ?>
 
+    <?= $form->field($model, 'seriesId')->label('系列')->widget(\kartik\select2\Select2::className(), [
+        'data' => ArrayHelper::map(\common\models\Series::find()->asArray()->all(), 'id', 'title'),
+        'options' => ['placeholder' => '归属系列'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ]) ?>
+
     <?= $form->field($model, 'content')->widget(SimpleMDE::className(), []) ?>
 
     <?php if ($model->isNewRecord == false): ?>

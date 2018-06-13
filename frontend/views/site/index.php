@@ -3,7 +3,10 @@
 /* @var $this yii\web\View */
 /* @var $post common\models\Post */
 /* @var $id integer */
-/* @var \common\models\Post[] $relatedPosts */
+
+/* @var $relatedPosts \common\models\Post[] */
+
+/* @var $series \common\models\Series */
 
 use yii\bootstrap\Html;
 use yii\helpers\Markdown;
@@ -22,7 +25,7 @@ $this->title .= Yii::$app->name;
                 <ul>
                     <li>
                         <?= Html::a(Yii::$app->getFormatter()->asDate($post->latest->created_at) . ': ' . $post->latest->title, Url::to(['', 'title' => $post->latest->title])) ?>
-                        <?= Html::a('diff', Url::to(['diff', 'id1' => $post->id, 'id2' => $post->latest->id]), ['class' => 'diff-code label label-warning', 'data-toggle'=>'modal', 'data-target'=>'#diff-modal']) ?>
+                        <?= Html::a('diff', Url::to(['diff', 'id1' => $post->id, 'id2' => $post->latest->id]), ['class' => 'diff-code label label-warning', 'data-toggle' => 'modal', 'data-target' => '#diff-modal']) ?>
                     </li>
                 </ul>
             </div>
@@ -41,6 +44,20 @@ $this->title .= Yii::$app->name;
                 ?>
                 <?= $tagHtmls ? '标签: ' . join(', ', $tagHtmls) : '' ?>
             </span>
+            <?php if ($series) : ?>
+                <h3><a href="<?= Url::to(['series', 'title' => $series->title]) ?>"><?= $series->title ?></a></h3>
+                <?php foreach ($series->postSeriesRelations as $postSeriesRelation) : ?>
+                    <li>
+                        <?php if ($post->title == $postSeriesRelation->post_title): ?>
+                            <?= $postSeriesRelation->post_title ?>
+                        <?php else: ?>
+                            <a href="<?= Url::to(['index', 'title' => $postSeriesRelation->post_title]) ?>">
+                                <?= $postSeriesRelation->post_title ?>
+                            </a>
+                        <?php endif; ?>
+                    </li>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
 
         <div class="body-content">
@@ -57,7 +74,7 @@ $this->title .= Yii::$app->name;
                         <?php foreach ($post->archives as $archivePost): ?>
                             <li>
                                 <?= Html::a(Yii::$app->getFormatter()->asDate($archivePost->created_at) . ': ' . $archivePost->title, Url::to(['', 'id' => $archivePost->id])) ?>
-                                <?= Html::a('diff', Url::to(['diff', 'id1' => $archivePost->id, 'id2' => $post->id]), ['class' => 'diff-code label label-warning', 'data-toggle'=>'modal', 'data-target'=>'#diff-modal']) ?>
+                                <?= Html::a('diff', Url::to(['diff', 'id1' => $archivePost->id, 'id2' => $post->id]), ['class' => 'diff-code label label-warning', 'data-toggle' => 'modal', 'data-target' => '#diff-modal']) ?>
                             </li>
                         <?php endforeach; ?>
                     </ul>

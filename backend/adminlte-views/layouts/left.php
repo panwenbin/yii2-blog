@@ -8,10 +8,11 @@ $user = Yii::$app->user->identity;
 
         <?= dmstr\widgets\Menu::widget(
             [
-                'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
                 'items' => [
                     ['label' => '后台菜单', 'options' => ['class' => 'header']],
                     ['label' => '日志管理', 'icon' => 'file-code-o', 'url' => ['/post']],
+                    ['label' => '系列管理', 'icon' => 'file-code-o', 'url' => ['/series']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug'], 'visible' => YII_DEBUG],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                 ],
