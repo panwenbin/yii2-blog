@@ -59,9 +59,9 @@ class Tag extends TagGii
         if (!$tags) return [];
         $counts = array_column($tags, 'count');
         $maxCount = max($counts); // 3em
-        $minCount = min($counts); // 0.5em
+        $minCount = min($counts); // 0.857em
         array_walk($tags, function (&$tag) use ($maxCount, $minCount) {
-            $tag['fontSize'] = ((($tag['count'] - $minCount) / ($maxCount - $minCount + 5)) * 2.5 + 0.5) . 'em';
+            $tag['fontSize'] = ((($tag['count'] - $minCount) / ($maxCount - $minCount + 5)) * 2.143 + 0.857) . 'em';
         });
         return $tags;
     }
