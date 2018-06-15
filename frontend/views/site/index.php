@@ -83,8 +83,8 @@ $this->title .= Yii::$app->name;
 
 
             <div class="body-footer">
-                <div class="pull-left"><?= $post->nextPost ? Html::a('< 新一篇：' . $post->nextPost->title, Url::to(['', 'title' => $post->nextPost->title]), ['class' => 'btn btn-success']) : '' ?></div>
-                <div class="pull-right"><?= $post->prevPost ? Html::a('> 前一篇：' . $post->prevPost->title, Url::to(['', 'title' => $post->prevPost->title]), ['class' => 'btn btn-success']) : '' ?></div>
+                <div class="pull-left"><?= $post->nextPost ? Html::a('< 新一篇：' . $post->nextPost->title, Url::to(['', 'title' => $post->nextPost->title]), ['id' => 'prev_link', 'class' => 'btn btn-success']) : '' ?></div>
+                <div class="pull-right"><?= $post->prevPost ? Html::a('> 前一篇：' . $post->prevPost->title, Url::to(['', 'title' => $post->prevPost->title]), ['id' => 'next_link', 'class' => 'btn btn-success']) : '' ?></div>
             </div>
 
             <?php if ($relatedPosts): ?>

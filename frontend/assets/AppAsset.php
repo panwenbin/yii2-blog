@@ -17,6 +17,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/diff.js',
+        'js/prev_next.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
