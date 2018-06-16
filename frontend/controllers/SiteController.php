@@ -18,8 +18,10 @@ use yii\base\InvalidParamException;
 use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -245,9 +247,13 @@ class SiteController extends Controller
      * Signs user up.
      *
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionSignup()
     {
+        if (ArrayHelper::getValue(Yii::$app->params, 'signupDisabled')) {
+            throw new ForbiddenHttpException('注册通道暂时关闭！如有需要，请联系博主。', 403);
+        }
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
