@@ -151,3 +151,12 @@ a.desc:after {
 .body-content table tr:nth-child(2n) {
     background-color: #f8f8f8;
 }
+
+.links ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.links ul li {
+    margin-top: 3px;
+}
