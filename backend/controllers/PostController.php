@@ -8,6 +8,7 @@ use backend\models\Post;
 use common\models\PostSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -87,6 +88,30 @@ class PostController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+     * 审核日志
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     */
+    public function actionAudit($id)
+    {
+        /* @var $user \common\models\User */
+        $user = Yii::$app->getUser()->getIdentity();
+        if ($user->isAdmin() == false) {
+            throw new ForbiddenHttpException('只有管理员可以审核日志', 403);
+        }
+        $model = $this->findModel($id);
+        $model->status = Post::STATUS_已审核;
+        if ($model->save()) {
+            Yii::$app->session->setFlash('success', '已审核日志：' . $model->title);
+        } else {
+            Yii::$app->session->setFlash('error', '审核日志失败：' . $model->title);
+        }
+        return $this->redirect(['view', 'id' => $model->id]);
     }
 
     /**

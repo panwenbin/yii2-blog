@@ -12,8 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="post-index">
 
-    <span class="pull-right"><a data-toggle="隐藏搜索" href="#" onclick="javascript:(function(ele){$('.post-search').toggle(); var data = $(ele).attr('data-toggle'); $(ele).attr('data-toggle', $(ele).html()); $(ele).html(data);})(this);">显示搜索</a></span>
-    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+    <span class="pull-right"><a data-toggle="隐藏搜索" href="#"
+                                onclick="javascript:(function(ele){$('.post-search').toggle(); var data = $(ele).attr('data-toggle'); $(ele).attr('data-toggle', $(ele).html()); $(ele).html(data);})(this);">显示搜索</a></span>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('写日志', ['create'], ['class' => 'btn btn-success']) ?>
@@ -25,13 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'title',
                 'format' => 'raw',
-                'value' => function(\common\models\Post $post) {
+                'value' => function (\common\models\Post $post) {
                     return Html::a($post->title, ['view', 'id' => $post->id]);
                 },
             ],
             [
                 'label' => '作者',
                 'attribute' => 'user.username',
+            ],
+            [
+                'label' => '状态',
+                'attribute' => 'statusTxt',
             ],
             'created_at:datetime',
         ],

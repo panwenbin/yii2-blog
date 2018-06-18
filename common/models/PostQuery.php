@@ -41,6 +41,26 @@ class PostQuery extends ActiveQuery
         });
     }
 
+    public function auditedOrOwn()
+    {
+        $this->andWhere(['status' => Post::STATUS_已审核]);
+        /* @var $user \common\models\User */
+        $user = Yii::$app->getUser()->getIdentity();
+        if ($user && $user->isAdmin() == false) {
+            $this->orWhere(['user_id' => $user->id]);
+        }
+        return $this;
+    }
+
+    public static function limitToAuditedOrOwnPosts()
+    {
+        Event::on(static::className(), PostQuery::EVENT_INIT, function ($event) {
+            /* @var $postQuery PostQuery */
+            $postQuery = $event->sender;
+            $postQuery->auditedOrOwn();
+        });
+    }
+
     public function orderRecent()
     {
         return $this->orderBy('created_at DESC');

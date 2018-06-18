@@ -11,6 +11,8 @@ use yii\widgets\DetailView;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => '日志列表', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+/* @var $user \common\models\User */
+$user = Yii::$app->getUser()->getIdentity();
 ?>
 <div class="post-view">
 
@@ -25,6 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('更新日志', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php if ($user->isAdmin() && $model->isAudited() == false): ?>
+            <?= Html::a('审核日志', ['audit', 'id' => $model->id], [
+                'class' => 'btn btn-warning',
+                'data' => [
+                    'confirm' => '您确定要允许这篇日志发布吗?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php endif; ?>
         <?= Html::a('删除日志', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -48,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $tagHtmls ? '标签: ' . join(', ', $tagHtmls) : '' ?>
             </span>
 
-            <?= Markdown::process($model->content, 'gfm') ?>
+        <?= Markdown::process($model->content, 'gfm') ?>
     </div>
 
     <?php if (is_null($model->archive_of_id)): ?>

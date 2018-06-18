@@ -50,4 +50,5 @@ return [
         ],
     ],
     'params' => $params,
+    'on beforeRequest' => ['common\handlers\LimitToOwn', 'frontend'],
 ];

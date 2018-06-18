@@ -7,18 +7,19 @@ use Yii;
 /**
  * This is the model class for table "{{%post}}".
  *
- * @property integer $id
- * @property integer $user_id
- * @property string $title
- * @property string $content
- * @property integer $created_at
- * @property integer $updated_at
- * @property integer $archive_of_id
+ * @property int $id
+ * @property int $user_id 用户ID
+ * @property string $title 标题
+ * @property string $content 内容
+ * @property int $created_at 发布时间
+ * @property int $updated_at 修改时间
+ * @property int $archive_of_id 是哪篇的存档
+ * @property int $status 状态
  */
 class PostGii extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -26,12 +27,12 @@ class PostGii extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['user_id', 'created_at', 'updated_at', 'archive_of_id'], 'integer'],
+            [['user_id', 'created_at', 'updated_at', 'archive_of_id', 'status'], 'integer'],
             [['title', 'content'], 'required'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 255],
@@ -39,7 +40,7 @@ class PostGii extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -51,6 +52,7 @@ class PostGii extends \yii\db\ActiveRecord
             'created_at' => '发布时间',
             'updated_at' => '修改时间',
             'archive_of_id' => '是哪篇的存档',
+            'status' => '状态',
         ];
     }
 }

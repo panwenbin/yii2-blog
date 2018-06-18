@@ -7,6 +7,7 @@ namespace common\models;
 
 
 use common\models\gii\PostGii;
+use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
@@ -28,6 +29,8 @@ use yii\web\NotFoundHttpException;
  */
 class Post extends PostGii
 {
+    const STATUS_未审核 = 0;
+    const STATUS_已审核 = 1;
     public $makeOldAsArchive;
     protected $tagNames; // 用于接收提交的标签数组
     protected $seriesId; // 用于接收提交的系列ID
@@ -69,6 +72,25 @@ class Post extends PostGii
     }
 
     /**
+     * 是否已审核
+     * @return bool
+     */
+    public function isAudited()
+    {
+        return $this->status == self::STATUS_已审核;
+    }
+
+    public function getStatusTxt()
+    {
+        switch ($this->status) {
+            case self::STATUS_未审核:
+                return '未审核';
+            case self::STATUS_已审核:
+                return '已审核';
+        }
+    }
+
+    /**
      * 读取接收到的标签数组，否则读取旧数据的标签数组
      * @return array
      */
@@ -104,6 +126,27 @@ class Post extends PostGii
     public function setSeriesId($seriesId)
     {
         $this->seriesId = $seriesId;
+    }
+
+    /**
+     * @return bool
+     * @throws \Throwable
+     */
+    public function beforeValidate()
+    {
+        /**
+         * 处理发日志时的审核状态
+         */
+        if ($this->isNewRecord) {
+            /* @var $user \common\models\User */
+            $user = Yii::$app->getUser()->getIdentity();
+            if ($user && $user->isAdmin()) {
+                $this->status = self::STATUS_已审核;
+            } else {
+                $this->status = self::STATUS_未审核;
+            }
+        }
+        return parent::beforeValidate();
     }
 
     /**
