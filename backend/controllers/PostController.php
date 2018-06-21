@@ -2,15 +2,16 @@
 
 namespace backend\controllers;
 
-use backend\models\PostUpdateForm;
-use Yii;
 use backend\models\Post;
+use backend\models\PostUpdateForm;
+use common\models\Draft;
 use common\models\PostSearch;
+use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -75,11 +76,21 @@ class PostController extends Controller
     /**
      * Creates a new Post model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param null $draft_id
      * @return mixed
+     * @throws NotFoundHttpException
      */
-    public function actionCreate()
+    public function actionCreate($draft_id = null)
     {
         $model = new Post();
+
+        if ($draft_id && $draft = $this->findDraft($draft_id)) {
+            $model->title = $draft->title;
+            $model->content = $draft->content;
+            if ($draft->tags) {
+                $model->setTagNames(explode(',', $draft->tags));
+            }
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -118,12 +129,22 @@ class PostController extends Controller
      * Updates an existing Post model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
+     * @param null $draft_id
      * @return mixed
+     * @throws NotFoundHttpException
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $draft_id = null)
     {
         $model = $this->findModel($id);
         $updatePost = new PostUpdateForm($model);
+
+        if ($draft_id && $draft = $this->findDraft($draft_id)) {
+            $model->title = $draft->title;
+            $model->content = $draft->content;
+            if ($draft->tags) {
+                $model->setTagNames(explode(',', $draft->tags));
+            }
+        }
 
         if ($updatePost->load(Yii::$app->request->post(), 'Post') && $updatePost->save()) {
             return $this->redirect(['view', 'id' => $updatePost->id]);
@@ -159,7 +180,21 @@ class PostController extends Controller
         if (($model = Post::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('日志未找到');
+        }
+    }
+
+    /**
+     * @param $id
+     * @return Draft|null
+     * @throws NotFoundHttpException
+     */
+    protected function findDraft($id)
+    {
+        if (($model = Draft::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('草稿未找到');
         }
     }
 }
