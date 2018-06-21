@@ -52,7 +52,20 @@ class Post extends PostGii
         return array_merge(parent::rules(), [
             ['tagNames', 'safe'],
             ['seriesId', 'integer'],
+            ['title', 'uniqueWhenInsert'],
         ]);
+    }
+
+    /**
+     * 新日志检查标题重复
+     * @param $attribute
+     * @param $params
+     */
+    public function uniqueWhenInsert($attribute, $params)
+    {
+        if ($this->isNewRecord && Post::find()->where(['title' => $this->title])->exists()) {
+            $this->addError($attribute, '相同的标题已经存在');
+        }
     }
 
     public function attributeLabels()
