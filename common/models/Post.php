@@ -52,7 +52,7 @@ class Post extends PostGii
         return array_merge(parent::rules(), [
             ['tagNames', 'safe'],
             ['seriesId', 'integer'],
-            ['title', 'uniqueWhenInsert'],
+            ['title', 'uniqueWhenInsert', 'on' => ['create']],
         ]);
     }
 

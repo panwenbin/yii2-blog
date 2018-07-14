@@ -83,6 +83,7 @@ class PostController extends Controller
     public function actionCreate($draft_id = null)
     {
         $model = new Post();
+        $model->scenario = 'create';
 
         if ($draft_id && $draft = $this->findDraft($draft_id)) {
             $model->title = $draft->title;
