@@ -49,6 +49,7 @@ class DraftController extends Controller
 
         if ($draft->load($data, '') && $draft->validate()) {
             if ($draft->isBigChange()) {
+                $draft->id = null;
                 $draft->setIsNewRecord(true);
             }
             if ($draft->save()) {
