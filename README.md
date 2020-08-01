@@ -1,6 +1,6 @@
 ## 安装说明
 1. 因为是Yii2项目，PHP要求5.4以上，具体见 [Yii2 Requirements](http://www.yiiframework.com/doc-2.0/guide-intro-yii.html#requirements-and-prerequisites)
-2. composer.lock文件是基于PHP7.0的，如果PHP版本低于7.0，可以删除composer.lock再安装
+2. composer.lock文件是基于PHP7.2的，如果PHP版本低于7.2，可以删除composer.lock再安装
 3. 在项目根目录执行安装 `composer install --no-dev`
 4. 在项目根目录执行初始化 `php init`，然后选1.production
 5. 配置数据库 在`common/config/main-local.php`
